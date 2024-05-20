@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: fit-content;
+    background-color: rgb(245, 245, 245);
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    border: 0.25px rgb(203, 203, 203) solid;
+    padding: 5px 10px;
+    width: calc(100% - 20px);
+    margin: 5px 0;
+    clear: both;
+  }
+  
+  .input {
+    width: calc(16.6%);
+    height: 1.5em;
+    font-size: 1.1em;
+    text-align: center;
+    border: none;
+    margin: 0;
+    background: none;
+  }
+  
+  .input:focus {
+    outline: none;
+    border: none;
+  }
+  
+  .input::placeholder {
+    text-align: center;
+  }
+  
+  .input:placeholder-shown {
+    text-align: left;
+  }
+  .input {
+    caret-color: rgb(97, 97, 97);
+    color: rgb(60,60,60);
+  }

@@ -1,0 +1,121 @@
+.container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 100px;
+}
+
+.inputLabel {
+    font-size: 1.1em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+}
+
+.roundInput {
+    width: 100%;
+    padding: 6px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 50px;
+    width: 55px;
+    display: inline-block;
+    margin: 5px;
+    outline: none;
+}
+
+.drawingInfo {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.loading {
+    font-size: 16px;
+    color: #666;
+    text-align: center;
+}
+.lottoNumber {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    color: #333;
+    margin: 5px 5px 0px 5px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 1.5px rgb(237, 237, 237) solid;
+    font-weight: bold;
+    padding: 0;
+  }
+  .lottoWrapper {
+    display: inline-block;
+    width: 16.6%;
+    margin: 0;
+    padding: 0;
+  }
+  .rewardCard {
+    padding: 0 0px;
+    width: 200px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .rewardCard p:first-child {
+    font-weight: bold;
+    color: rgb(80, 116, 234);
+    margin-bottom: 0;
+  }
+  .rewardCard p:nth-child(2) {
+    font-size: 1.2em;
+    margin: 0;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .rewardCard p:last-child, .rewardCard p:nth-child(3) {
+    color: #777;
+    font-size: 0.8em;
+    margin: 5px 0;
+  }
+  
+  .left {
+    display: inline-block;
+    vertical-align: top;
+    width: 25%;
+  }
+  .right {
+    display: inline-block;
+    vertical-align: top;
+    width: 75%;
+  }
+  
+  .line {
+    display: block;
+    border-top: 0.02px solid rgb(210, 210, 210);
+    clear: both;
+    margin: 20px 0;
+    margin-bottom: 20px;
+}
+.header {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+}
+.pot {
+    font-size: 1.6em;
+    margin: 0;
+    color: rgb(80, 116, 234);
+    font-weight: bold;
+}
+.desc {
+    font-size: 0.8em;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.left .desc {
+    margin-top: 20px;
+}
