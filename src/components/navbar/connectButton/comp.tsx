@@ -7,7 +7,7 @@ export default function ConnectButton() {
       {({ isConnected, isConnecting, show, hide, address, ensName, chain }) => {
         return (
           <div onClick={show} className={styles.connectButton}>
-            <p>Connect</p>
+            <p className={styles.white}>Connect</p>
           </div>
         );
       }}
