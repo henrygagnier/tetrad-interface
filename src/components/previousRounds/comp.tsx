@@ -90,8 +90,8 @@ export const PreviousRounds = () => {
                         {(new Date() < roundDate) ?
                             <>
                                 {["❔", "❔", "❔", "❔", "❔", "❔"].map((number, index) => (
-                                    <div className={styles.lottoWrapper}>
-                                        <p className={styles.lottoNumber} key={index}>
+                                    <div className={styles.lottoWrapper} key={index}>
+                                        <p className={styles.lottoNumber}>
                                             {number}
                                         </p>
                                     </div>
@@ -99,16 +99,16 @@ export const PreviousRounds = () => {
                             </> :
                             Number(amountCollected) === 0 ?
                                 ["0", "0", "0", "0", "0", "0"].map((number, index) => (
-                                    <div className={styles.lottoWrapper}>
-                                        <p className={styles.lottoNumber} key={index}>
+                                    <div className={styles.lottoWrapper} key={index}>
+                                        <p className={styles.lottoNumber}>
                                             {number}
                                         </p>
                                     </div>
                                 ))
                                 :
                                 convertNumbers(finalNumber).map((number, index) => (
-                                    <div className={styles.lottoWrapper}>
-                                        <p className={styles.lottoNumber} key={index}>
+                                    <div className={styles.lottoWrapper} key={index}>
+                                        <p className={styles.lottoNumber}>
                                             {number}
                                         </p>
                                     </div>
