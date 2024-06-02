@@ -106,7 +106,7 @@ export const PreviousRounds = () => {
                                     </div>
                                 ))
                                 :
-                                convertNumbers(finalNumber).map((number, index) => (
+                                (convertNumbers(finalNumber).reverse()).map((number, index) => (
                                     <div className={styles.lottoWrapper} key={index}>
                                         <p className={styles.lottoNumber}>
                                             {number}

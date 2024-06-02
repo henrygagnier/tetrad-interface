@@ -167,7 +167,7 @@ export function Navbar() {
           </div>
         )}
         <Link href="/dashboard" className={`${styles.navLeft} ${styles.navbarLi}`}>
-          <p>Tetrad Finance</p>
+          <p>Tetrad Finance (beta)</p>
         </Link>
       </div>
     </nav>

@@ -47,7 +47,7 @@ export function BuyTickets() {
 
     function transformTicketsToBytes32(arr: string[][]) {
         return arr.map(innerArray => {
-            return Number("1" + innerArray.join(''));
+            return Number("1" + innerArray.reverse().join(''));
         });
     }
 
