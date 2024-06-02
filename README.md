@@ -1,4 +1,5 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tetrad Lottery Interface
+Hi! This is the website for the Chainlink lottery. I'm working on picking a domain!
 
 ## Getting Started
 
