@@ -51,6 +51,7 @@
     float: left;
     margin: 0;
     margin-bottom: 10px;
+    clear: both;
 }
 .amount {
     float: right;
@@ -84,13 +85,36 @@
     width: 100%;
     padding: 15px;
     outline: none;
+    margin-top: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid rgb(201, 201, 201);
+    color: rgb(52, 52, 52);
+    font-size: 1.15em;
+    background: white;
+    cursor: not-allowed;
+}
+.buyButtonEnabled {
+    background: linear-gradient(75deg, rgb(97, 152, 255), rgb(53, 144, 255));
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.editButton {
+    clear: both;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    outline: none;
     border: none;
     margin-top: 10px;
     border-radius: 15px;
     cursor: pointer;
-    background-color: rgb(245, 245, 245);
+    border: 1px solid rgb(58, 117, 255);
+    background: white;
+    color: rgb(48, 131, 255);
     font-size: 1.15em;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 .wrapper {
     border-radius: 50px;

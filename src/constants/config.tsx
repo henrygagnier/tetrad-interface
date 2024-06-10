@@ -1,43 +1,62 @@
 "use client";
 
-import { WagmiProvider, createConfig, http } from "wagmi";
-import { arbitrumSepolia, arbitrum } from "wagmi/chains";
+import { WagmiProvider, createConfig, http, useReadContract } from "wagmi";
+import { arbitrumSepolia, arbitrum, optimismSepolia, optimism } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ReactNode } from "react";
 import { lotteryABI } from "@/abis/lottery";
+import { ccLotteryABI } from "@/abis/ccLottery";
+
 
 export const chainDetails = [
-  { name: "Arbitrum Sepolia", chainId: 421614, logo: "/arbitrum.webp" },
-  { name: "Arbitrum Mainnet", chainId: 42161, logo: "/Arbitrum-logo.webp" },
+  { name: "Arbitrum Sepolia", chainId: 421614, logo: "/Arbitrum-logo.webp", WETH: "0xA8C0c11bf64AF62CDCA6f93D3769B88BdD7cb93D" },
+  { name: "OP Sepolia", chainId: 11155420, logo: "/optimism.png" },
+  /*{ name: "Arbitrum One", chainId: 42161, logo: "/Arbitrum-logo.webp", WETH: "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1" },
+  { name: "OP Mainnet", chainId: 10, logo: "/optimism.png" },*/
 ]
+
 export const defaultChain = chainDetails[0];
 
+export const nullAddress = "0x0000000000000000000000000000000000000000" as `0x${string}`;
+
 export const rewardsBreakdown = (): number[] => {
-  return([0.15, 0.175, 0.2, 0.225, 0.1, 0.15]);
+  return ([0.15, 0.175, 0.2, 0.225, 0.1, 0.15]);
 }
 
-export const price = (): number => {
-  return(0.0005);
-}
+export const firstRound: number = 19882;
 
-export const firstRound: number = 19861;
-
-export const lotteryContract = {
-  abi: lotteryABI,
-  address: "0xcf79dec98AEF1CDBa7f5F93b3bf1601fb205a395" as `0x${string}`
+export const lotteryContract: Record<number, {abi: any, address: `0x${string}`}> = {
+  [421614]: { // ARB Testnet
+    abi: lotteryABI,
+    address: "0x5635988d5816540C0b62757e8Df5b9dC5853cD79" as `0x${string}`
+  },
+  [42161]: { // ARB Mainnet
+    abi: lotteryABI,
+    address: "0x" as `0x${string}` //replace address
+  },
+  [11155420]: { // OP Testnet
+    abi: ccLotteryABI,
+    address: "0xb657d0e863648e5AeBb061b3af62533b03E019a4" as `0x${string}`
+  },
+  [10]: { // OP Mainnet
+    abi: ccLotteryABI,
+    address: "0x" as `0x${string}` //replace address
+  }
 }
 
 export const config = createConfig(
   getDefaultConfig({
-    chains: [arbitrumSepolia, arbitrum],
+    chains: [arbitrumSepolia, optimismSepolia/*, arbitrum, optimism*/],
     transports: {
       [arbitrumSepolia.id]: http(),
       [arbitrum.id]: http(),
+      [optimism.id]: http(),
+      [optimismSepolia.id]: http(),
     },
 
     walletConnectProjectId: "1a220f2c3d69be0e73a7d02da48942f5",
-    appName: "Tetrad Finance",
+    appName: "Tetrad Lottery",
   }),
 );
 

@@ -6,6 +6,12 @@
     margin: 100px;
 }
 
+@media screen and (max-width:1000px) {
+  .container {
+    margin: 25px;
+  }
+}
+
 .inputLabel {
     font-size: 1.1em;
     font-weight: bold;
@@ -66,7 +72,7 @@
   
   .rewardCard p:first-child {
     font-weight: bold;
-    color: rgb(80, 116, 234);
+    color: #0099ff;
     margin-bottom: 0;
   }
   .rewardCard p:nth-child(2) {
@@ -108,7 +114,7 @@
 .pot {
     font-size: 1.6em;
     margin: 0;
-    color: rgb(80, 116, 234);
+    color: #0099ff;
     font-weight: bold;
 }
 .desc {
@@ -118,4 +124,21 @@
 }
 .left .desc {
     margin-top: 20px;
+}
+.drawLottery {
+  clear: both;
+    display: block;
+    padding: 5px 10px;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid rgb(201, 201, 201);
+    color: rgb(52, 52, 52);
+    background: white;
+    cursor: not-allowed;
+    background: linear-gradient(75deg, rgb(97, 152, 255), rgb(53, 144, 255));
+    color: white;
+    border: none;
+    cursor: pointer;
 }

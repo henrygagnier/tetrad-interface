@@ -3,7 +3,15 @@
 import styles from "./comp.module.css";
 import { useReadContract, useWriteContract } from 'wagmi';
 import { useEffect, useState } from 'react';
-import { firstRound, price, lotteryContract, rewardsBreakdown } from "@/constants/config";
+import { firstRound, lotteryContract, rewardsBreakdown, defaultChain } from "@/constants/config";
+
+interface LotteryData {
+    rewardsPerBracket: bigint[];
+    countWinnersPerBracket: bigint[];
+    totalAmountCollected: bigint;
+    finalNumber: number;
+    amountCollected: bigint;
+}
 
 export const PreviousRounds = () => {
     const [round, setRound] = useState<number>(0);
@@ -21,15 +29,17 @@ export const PreviousRounds = () => {
     }
 
     const { data: currentLotteryId, isLoading: isLoadingCurrentLotteryId } = useReadContract({
-        ...lotteryContract,
+        ...lotteryContract[defaultChain.chainId],
         functionName: 'viewCurrentLotteryId',
+        chainId: defaultChain.chainId
     });
 
     const { data: lotteryData, isLoading: isLoadingLotteryData } = useReadContract({
-        ...lotteryContract,
+        ...lotteryContract[defaultChain.chainId],
         functionName: 'viewLottery',
+        chainId: defaultChain.chainId,
         args: [BigInt(round ? Number(round) + firstRound - 1 : 0)]
-    });
+    }) as { data: LotteryData | undefined, isLoading: boolean };
 
     useEffect(() => {
         if (currentLotteryId) {
@@ -37,18 +47,27 @@ export const PreviousRounds = () => {
         }
     }, [currentLotteryId]);
 
+    const { data: _price } = useReadContract({
+        ...lotteryContract[defaultChain.chainId],
+        functionName: 'price',
+        chainId: defaultChain.chainId
+      });
+      
+      const price = Number(_price) / 10 ** 18;
+
     useEffect(() => {
         setIsLoading(isLoadingCurrentLotteryId || isLoadingLotteryData);
     }, [isLoadingCurrentLotteryId, isLoadingLotteryData]);
 
-    const roundDate = new Date((Number(round) + firstRound + 1) * 86400000);
+    const roundDate = new Date((Number(round) + firstRound) * 86400000);
 
     const { writeContract, error } = useWriteContract();
     const drawLottery = async (_round: bigint) => {
         await writeContract({
-            ...lotteryContract,
+            ...lotteryContract[defaultChain.chainId],
             functionName: 'drawLottery',
             args: [_round + BigInt(firstRound) - BigInt(1)],
+            chainId: defaultChain.chainId
         });
         if (error) console.error(error);
     }
@@ -57,13 +76,12 @@ export const PreviousRounds = () => {
         if (!lotteryData) return null;
 
         const {
-            rewardsPerBracket,
-            countWinnersPerBracket,
-            totalAmountCollected,
-            finalNumber,
-            amountCollected
+            rewardsPerBracket = [],
+            countWinnersPerBracket = [],
+            totalAmountCollected = BigInt(0),
+            finalNumber = 0,
+            amountCollected = BigInt(0)
         } = lotteryData;
-
 
         function convertNumbers(number: number): number[] {
             const numberStr = number.toString();
@@ -76,27 +94,26 @@ export const PreviousRounds = () => {
             return result;
         }
 
-        "<button onClick={() => drawLottery(BigInt(round))}>Draw Lottery</button>"
         return (
             <div className={styles.lotteryDetails}>
                 <div>
                     <div className={styles.left}>
                         <p className={styles.header}>Winning Number</p>
-                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(amountCollected) === 0 ? "No participants this round!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!"}</p>
+                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(amountCollected || 0) === 0 ? "No participants this round!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!"}</p>
+                        { new Date() >= roundDate && Number(amountCollected || 0) !== 0 && Number(finalNumber) === 0 && <button onClick={() => drawLottery(BigInt(round))} className={styles.drawLottery}>Draw Lottery</button>}
                     </div>
                     
 
                     <div className={styles.right}>
                         {(new Date() < roundDate) ?
-                            <>
-                                {["❔", "❔", "❔", "❔", "❔", "❔"].map((number, index) => (
+                                ["❔", "❔", "❔", "❔", "❔", "❔"].map((number, index) => (
                                     <div className={styles.lottoWrapper} key={index}>
                                         <p className={styles.lottoNumber}>
                                             {number}
                                         </p>
                                     </div>
-                                ))}
-                            </> :
+                                ))
+                             :
                             Number(amountCollected) === 0 ?
                                 ["0", "0", "0", "0", "0", "0"].map((number, index) => (
                                     <div className={styles.lottoWrapper} key={index}>
@@ -106,13 +123,22 @@ export const PreviousRounds = () => {
                                     </div>
                                 ))
                                 :
+                                Number(finalNumber) !== 0 ?
                                 (convertNumbers(finalNumber).reverse()).map((number, index) => (
                                     <div className={styles.lottoWrapper} key={index}>
                                         <p className={styles.lottoNumber}>
                                             {number}
                                         </p>
                                     </div>
+                                )) :
+                                ["❔", "❔", "❔", "❔", "❔", "❔"].map((number, index) => (
+                                    <div className={styles.lottoWrapper} key={index}>
+                                        <p className={styles.lottoNumber}>
+                                            {number}
+                                        </p>
+                                    </div>
                                 ))
+
                         }
                     </div>
                 </div>
@@ -121,7 +147,7 @@ export const PreviousRounds = () => {
                     <div className={styles.left}>
                         <p className={styles.header}>Prize Pot</p>
                         <p className={styles.pot}>{Number(totalAmountCollected) / 10 ** 18} ETH</p>
-                        <p className={styles.desc}>{(Number(amountCollected) / 10 ** 18) / price()} tickets purchased this round</p>
+                        <p className={styles.desc}>{(Number(amountCollected) / 10 ** 18) / price} tickets purchased this round</p>
 
                     </div>
                     <div className={styles.right}>
@@ -138,7 +164,7 @@ export const PreviousRounds = () => {
                                 {Number(countWinnersPerBracket[index]) !== 0 && (
                                     <p>{Number(reward) / 10 ** 18} ETH each</p>
                                 )}
-                                <p>{Number(countWinnersPerBracket[index])} Winners</p>
+                                <p>{Number(countWinnersPerBracket[index])} Winner{countWinnersPerBracket[index] !== BigInt(1) && "s"}</p>
                             </div>
                         ))}
                     </div>

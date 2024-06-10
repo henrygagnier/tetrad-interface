@@ -1,11 +1,11 @@
 "use client";
 
 import styles from "./comp.module.css";
-import { useAccount, useBalance, useReadContract, useWriteContract } from 'wagmi';
-import { lotteryContract } from "@/constants/config";
-import { useState, useEffect, useRef } from "react";
+import { useAccount, useBalance, useWriteContract, useEstimateGas, useReadContract } from 'wagmi';
+import { encodeAbiParameters, toFunctionSelector } from "viem";
+import { lotteryABI } from "@/abis/lottery";
+import { lotteryContract, nullAddress, defaultChain } from "@/constants/config";
 import { TicketInput } from "../ticketInput/comp";
-
 
 interface EditTicketsProps {
     setEditTickets: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,41 +15,87 @@ interface EditTicketsProps {
 }
 
 export function EditTickets({ setEditTickets, numberOfTickets, tickets, setTickets }: EditTicketsProps) {
+    const { data: _price } = useReadContract({
+        ...lotteryContract[defaultChain.chainId],
+        functionName: 'price',
+        chainId: defaultChain.chainId,
+    });
 
-
-    const { address } = useAccount();
-    const { data: _balance } = useBalance({ address: address });
+    const price = Number(_price || 0);
+    const { address, chainId } = useAccount();
+    const { data: _balance } = useBalance({ address });
     const balance = _balance ? (Number(_balance.value) / 10 ** 18).toFixed(6) : 0;
 
-    const { data: _price } = useReadContract({
-        ...lotteryContract,
-        functionName: 'price',
-    });
-    const price = Number(_price) / 10 ** 18;
-
-    function transformTicketsToBytes32(arr: string[][]) {
+    // Function to transform tickets into the required format for the blockchain
+    const transformTicketsToBytes32 = (arr: string[][]) => {
         return arr.map(innerArray => {
-            return Number("1" + innerArray.reverse().join(''));
+            return Number("1" + innerArray.slice().reverse().join(''));
         });
-    }
+    };
 
-    const { writeContract, error } = useWriteContract();
+    console.log(transformTicketsToBytes32(tickets))
+
+    const selector = toFunctionSelector(lotteryABI[0]);
+
+    // Encode parameters for the contract
+    const encodedParameters = encodeAbiParameters(
+        lotteryABI[0].inputs,
+        [transformTicketsToBytes32(tickets), address as `0x${string}`]
+    );
+
+    const encodedData = selector + encodedParameters.slice(2);
+
+    // Estimate gas required
+    const { data: estimatedGasData } = useEstimateGas({
+        account: address,
+        data: encodedData as `0x${string}`,
+        to: lotteryContract[defaultChain.chainId].address,
+        value: BigInt(price * tickets.length),
+        chainId: defaultChain.chainId,
+    });
+
+    const estimatedGas = BigInt(estimatedGasData || 0);
+
+    // Estimate fee for buying tickets
+    const { data: _fee } = useReadContract({
+        ...lotteryContract[chainId || 0],
+        functionName: 'estimateFeeBuyTickets',
+        chainId: chainId || 0,
+        args: [
+            transformTicketsToBytes32(tickets),
+            BigInt(price * tickets.length),
+            estimatedGas + BigInt(200000)
+        ],
+    });
+
+    const { writeContract, error, isPending } = useWriteContract();
+
     const buyTickets = async () => {
-        const data = await writeContract({
-            ...lotteryContract,
-            functionName: 'buyTickets',
-            args: [transformTicketsToBytes32(tickets)],
-            value: BigInt(price * tickets.length * 10 ** 18)
+        if (Number(numberOfTickets) > 0 && numberOfTickets) {
+        await writeContract({
+            ...lotteryContract[chainId || defaultChain.chainId],
+            functionName: 'buyTicketsWithEther',
+            args: chainId === defaultChain.chainId
+                ? [transformTicketsToBytes32(tickets), address || nullAddress]
+                : [
+                    transformTicketsToBytes32(tickets),
+                    BigInt(price * tickets.length),
+                    estimatedGas + BigInt(200000)
+                ],
+            value: chainId === defaultChain.chainId
+                ? BigInt(price * tickets.length)
+                : BigInt(price * tickets.length + Number(_fee))
         });
-        console.log(data);
-        console.error(error);
+        if (error) {
+            console.error(error);
+        }
     }
+    };
 
     const handleChange = (inputIndex: number, valueIndex: number, value: string) => {
         const newInputs = tickets.map((input, idx) =>
             idx === inputIndex ? input.map((val, i) => (i === valueIndex ? value : val)) : input
         );
-        console.log(newInputs);
         setTickets(newInputs);
     };
 
@@ -60,24 +106,25 @@ export function EditTickets({ setEditTickets, numberOfTickets, tickets, setTicke
                 <div className={styles.content}>
                     <div>
                         <p className={styles.label}>You pay</p>
-                        <p className={styles.amount}>{(price * Number(numberOfTickets)).toFixed(4)} ETH</p>
+                        <p className={styles.amount}>{(price / 10 ** 18 * numberOfTickets).toFixed(4)} ETH</p>
                     </div>
                     <div className={styles.line}></div>
                     {tickets.map((values, index) => (
-                        <>
+                        <div key={index}>
                             <p className={styles.ticketNumber}>#{index + 1}</p>
                             <TicketInput
-                                key={index}
                                 values={values}
                                 onChange={(valueIndex, value) => handleChange(index, valueIndex, value)}
                             />
-                        </>
+                        </div>
                     ))}
-                    <button className={styles.buyButton} onClick={() => buyTickets()}>Buy Tickets</button>
-                    <button className={styles.buyButton} onClick={() => setEditTickets(false)}>Go Back</button>
-                    <p className={styles.disclaimer}>Results are all provably fair, using Chainlink VRF. The jackpot consistently grows, carrying rewards from previous rounds if no one won. Tickets cannot be edited after purchase.</p>
+                    <button className={styles.buyButton} onClick={buyTickets}>{isPending ? "Purchasing..." : "Buy Tickets"}</button>
+                    <button className={styles.editButton} onClick={() => setEditTickets(false)}>Go Back</button>
+                    <p className={styles.disclaimer}>
+                        Results are all provably fair, using Chainlink VRF. The jackpot consistently grows, carrying rewards from previous rounds if no one won. Tickets cannot be edited after purchase.
+                    </p>
                 </div>
             </div>
         </div>
-    )
-} 
+    );
+}

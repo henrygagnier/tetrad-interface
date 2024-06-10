@@ -1,10 +1,10 @@
 
 .previousRounds {
-    background: linear-gradient(0deg, rgb(151, 176, 219),rgb(192, 207, 234));
+    background: linear-gradient(180deg, #0099ff,#2bcaff);
     padding: 50px;
 }
 .buyTicketsButton {
-    background-color: rgb(39, 115, 255);
+    background-color: #0099ff;
     border: none;
     outline: none;
     color: white;
@@ -12,11 +12,13 @@
     cursor: pointer;
     font-size: 1.1em;
     font-family: inherit;
-    border-radius: 50px;
+    border-radius: 5px;
+    font-weight: bold;
 }
 .landing {
     max-width: 600px;
-    margin: 100px auto;
+    margin: 50px auto;
+    line-height: normal;
 }
 .lotteryName {
     font-size: 4em;
@@ -25,7 +27,7 @@
 }
 .desc {
     font-size: 1.1em;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 .blue {
     color: rgb(24, 151, 255);
@@ -34,5 +36,8 @@
 }
 .centered {
     text-align: center;
-
+    width: 100%;
+    margin: 0;
+    margin-top: 43.333px;
+    line-height: 0;
 }
