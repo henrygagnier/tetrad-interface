@@ -1,0 +1,220 @@
+.pop {
+    background-color: white;
+    height: calc(100vh);
+    width: calc(100%);
+}
+.ticketInput {
+    outline: none;
+    border: none;
+    background: none;
+    font-size: 1.25em;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+}
+.inputWrapper {
+    padding: 10px;
+    width: calc(100% - 20px);
+    background-color: rgb(245, 245, 245);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    height:fit-content;
+    border: 0.25px rgb(203, 203, 203) solid;
+}
+.totalInputPrice {
+    display: block;
+    float: right;
+    margin: 0px;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+.inputWrapper:before,
+.inputWrapper:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.inputWrapper:after {
+    clear: both;
+}
+.line {
+    display: block;
+    border-top: 0.02px solid rgb(210, 210, 210);
+    clear: both;
+    margin: 20px 0;
+    margin-bottom: 20px;
+}
+.label {
+    float: left;
+    margin: 0;
+    margin-bottom: 10px;
+    clear: both;
+}
+.amount {
+    float: right;
+    margin: 0;
+}
+.header {
+    font-size: 1.25em;
+    margin-top: 0;
+    padding: 30px;
+    padding-bottom: 30px;
+    border-bottom: rgb(217, 217, 217) 1px solid;
+    background:linear-gradient(90deg, rgb(248, 255, 248), rgb(244, 244, 255));
+
+    margin-bottom: 0;
+}
+.content {
+    padding: 30px;
+    padding-top: 30px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+    height: calc(100% - 125px);
+}
+.disclaimer {
+    clear: both;
+    margin-top: 25px;
+    font-size: 0.8em;
+}
+.buyButton {
+    clear: both;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid rgb(201, 201, 201);
+    color: rgb(52, 52, 52);
+    font-size: 1.15em;
+    background: white;
+    cursor: not-allowed;
+}
+.buyButtonEnabled {
+    background: linear-gradient(75deg, rgb(97, 152, 255), rgb(53, 144, 255));
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.ticketCount {
+    margin: 3px 0;
+}
+.title {
+    color: #3590ff;
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: bold; 
+}
+.wrapper {
+    border-radius: 50px;
+    overflow: hidden;
+    height: calc(100vh);
+    width: calc(100%);
+    max-width: 400px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 10;
+}
+.number {
+    display: inline-block;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: fit-content;
+    background-color: rgb(245, 245, 245);
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+    border: 0.25px rgb(203, 203, 203) solid;
+    width: calc(100%);
+    margin: 5px 0;
+    clear: both;
+  }
+  .number {
+    width: calc(16.6%);
+    height: 1.5em;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    padding: 5px 0;
+    text-align: center;
+    margin: 0;
+    background: none;
+  }
+  .ticketNumber {
+    margin-bottom: 0;
+    clear: both;
+    font-size: 0.75em;
+}
+.lottoNumber {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    color: #333;
+    margin: 5px 5px 0px 5px;
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 1.5px rgb(237, 237, 237) solid;
+    font-weight: bold;
+    padding: 0;
+    width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 16px;
+  }
+    
+  .lottoWrapper {
+    display: inline-block;
+    width: 16.6%;
+    margin: 0;
+    padding: 0;
+  }
+  .border {
+    border-top: 3px solid rgb(53, 144, 255);
+    border-bottom: 3px solid rgb(53, 144, 255);
+  }
+  .borderStart {
+    border-radius: 50px 0px 0px 50px;
+
+    border: 3px solid rgb(53, 144, 255);
+    border-right: none;
+  }
+  .borderEnd {
+    border-radius: 0px 50px 50px 0px;
+    border: 3px solid rgb(53, 144, 255);
+    border-left: none;
+  }
+  .borderFull {
+    border-radius: 50px;
+    border: 3px solid rgb(53, 144, 255);
+  }
+  .buyButton {
+    clear: both;
+    display: block;
+    width: 100%;
+    padding: 15px;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid rgb(201, 201, 201);
+    color: rgb(52, 52, 52);
+    font-size: 1.15em;
+    background: white;
+    cursor: not-allowed;
+}
+.buyButtonEnabled {
+    background: linear-gradient(75deg, rgb(97, 152, 255), rgb(53, 144, 255));
+    color: white;
+    border: none;
+    cursor: pointer;
+}

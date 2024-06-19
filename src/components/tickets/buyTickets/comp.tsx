@@ -84,25 +84,13 @@ export function BuyTickets() {
     });
 
     const estimatedGas = BigInt(estimatedGasData || 0);
-    console.log(estimatedGas);
 
     const encodedParametersBuyTickets = encodeAbiParameters(
         ccLotteryABI[1].inputs,
-        [transformTicketsToBytes32(tickets), BigInt(price * tickets.length), estimatedGas + BigInt(200000)]
+        [transformTicketsToBytes32(tickets), BigInt(price * tickets.length), estimatedGas + BigInt(200000), address || nullAddress]
     );
 
     const encodedDataBuyTickets = buyTicketSelector + encodedParametersBuyTickets.slice(2);
-
-    const { data: estimatedGasBuyTickets } = useEstimateGas({
-        account: address,
-        data: encodedDataBuyTickets as `0x${string}`,
-        to: lotteryContract[chainId ? chainId : 0].address,
-        value: BigInt(price * tickets.length),
-        chainId: chainId,
-    });
-
-    console.log(estimatedGasBuyTickets);
-    console.log(encodedDataBuyTickets);
 
     const { data: _fee, error: _error } = useReadContract({
         ...lotteryContract[chainId || 0],
@@ -111,16 +99,10 @@ export function BuyTickets() {
         args: [
             transformTicketsToBytes32(tickets),
             BigInt(price * tickets.length),
-            estimatedGas + BigInt(200000)
+            estimatedGas + BigInt(200000),
+            address || nullAddress
         ],
     });
-
-    console.log(_error);
-    console.log([
-        transformTicketsToBytes32(tickets),
-        BigInt(price * tickets.length),
-        estimatedGas + BigInt(200000)
-    ])
 
 
     const { writeContract, error, isPending } = useWriteContract();
@@ -134,7 +116,8 @@ export function BuyTickets() {
                 : [
                     transformTicketsToBytes32(tickets),
                     BigInt(price * tickets.length),
-                    estimatedGas + BigInt(200000)
+                    estimatedGas + BigInt(200000),
+                    address || nullAddress
                 ],
             value: chainId === defaultChain.chainId
                 ? BigInt(price * tickets.length)
@@ -147,7 +130,7 @@ export function BuyTickets() {
     return (
         <div className={styles.wrapper}>
             {editTickets && <EditTickets setTickets={setTickets} setEditTickets={setEditTickets} numberOfTickets={Number(numberOfTickets)} tickets={tickets} />}
-            <div className={styles.pop}>
+            <main className={styles.pop}>
                 <p className={styles.header}>Buy Tickets</p>
                 <div className={styles.content}>
                     <div className={styles.inputWrapper}>
@@ -158,17 +141,17 @@ export function BuyTickets() {
                     </div>
                     <p className={styles.totalInputPrice}>ETH Balance: {balance}</p>
                     <div className={styles.line}></div>
-                    <div>
+                    { chainId != defaultChain.chainId && <><div>
                         <p className={styles.label}>CCIP Fee</p>
                         <p className={styles.amount}>{(Number(_fee) / 10**18).toFixed(4)} ETH</p>
                     </div>
                     <div>
                         <p className={styles.label}>Tickets</p>
                         <p className={styles.amount}>{(price / 10**18 * Number(numberOfTickets)).toFixed(4)} ETH</p>
-                    </div>
+                    </div></>}
                     <div>
                         <p className={styles.label}>You pay</p>
-                        <p className={styles.amount}>{(price / 10**18 * Number(numberOfTickets) + (Number(_fee) / 10**18)).toFixed(4)} ETH</p>
+                        <p className={styles.amount}>{(price / 10**18 * Number(numberOfTickets) + (chainId != defaultChain.chainId ? (Number(_fee) / 10**18) : 0)).toFixed(4)} ETH</p>
                     </div>
 
                     <button className={`${styles.buyButton} ${Number(numberOfTickets) > 0 && numberOfTickets && styles.buyButtonEnabled}`} onClick={() => buyTickets()}>{isPending ? "Purchasing..." : "Buy Instantly"}</button>
@@ -176,9 +159,10 @@ export function BuyTickets() {
                         <button className={styles.editButton} onClick={() => setEditTickets(true)}>Edit Numbers</button>
                     }
                     <p className={styles.disclaimer}>Results are all provably fair, using Chainlink VRF. The jackpot consistently grows, carrying rewards from previous rounds if no one won. Tickets cannot be edited after purchase.</p>
+                    <p className={styles.disclaimer}>Transactions from all chains excluding Arbitrum One can take up to 50 minutes to process, as funds and messages are essentially bridged.</p>
 
                 </div>
-            </div>
+            </main>
         </div>
     )
 } 

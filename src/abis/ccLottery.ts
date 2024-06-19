@@ -22,6 +22,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "buyTicketsWithEther",
@@ -45,6 +50,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "buyTicketsWithWETH",
@@ -125,6 +135,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "claimTickets",
@@ -205,6 +220,11 @@ export const ccLotteryABI = [
 			{
 				"components": [
 					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "call",
 						"type": "uint256"
@@ -231,7 +251,7 @@ export const ccLotteryABI = [
 					}
 				],
 				"indexed": false,
-				"internalType": "struct ProgrammableTokenTransfers.CCIPData",
+				"internalType": "struct TetradLotteryMessenger.CCIPData",
 				"name": "data",
 				"type": "tuple"
 			},
@@ -369,6 +389,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "estimateFeeBuyTickets",
@@ -403,6 +428,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "estimateFeeClaimTickets",
@@ -432,6 +462,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "getBuyTicketData",
@@ -483,6 +518,11 @@ export const ccLotteryABI = [
 			{
 				"components": [
 					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "call",
 						"type": "uint256"
@@ -508,7 +548,7 @@ export const ccLotteryABI = [
 						"type": "uint32[]"
 					}
 				],
-				"internalType": "struct ProgrammableTokenTransfers.CCIPData",
+				"internalType": "struct TetradLotteryMessenger.CCIPData",
 				"name": "data",
 				"type": "tuple"
 			}
@@ -537,6 +577,11 @@ export const ccLotteryABI = [
 				"internalType": "uint256",
 				"name": "_gasLimit",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
 			}
 		],
 		"name": "getClaimTicketData",
@@ -588,6 +633,11 @@ export const ccLotteryABI = [
 			{
 				"components": [
 					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
 						"internalType": "uint256",
 						"name": "call",
 						"type": "uint256"
@@ -613,7 +663,7 @@ export const ccLotteryABI = [
 						"type": "uint32[]"
 					}
 				],
-				"internalType": "struct ProgrammableTokenTransfers.CCIPData",
+				"internalType": "struct TetradLotteryMessenger.CCIPData",
 				"name": "data",
 				"type": "tuple"
 			}

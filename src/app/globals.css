@@ -22,9 +22,6 @@ svg {
   margin: 0;
   
 }
-main {
-  margin-top: 43.333px;
-}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

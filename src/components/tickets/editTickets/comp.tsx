@@ -64,7 +64,8 @@ export function EditTickets({ setEditTickets, numberOfTickets, tickets, setTicke
         args: [
             transformTicketsToBytes32(tickets),
             BigInt(price * tickets.length),
-            estimatedGas + BigInt(200000)
+            estimatedGas + BigInt(200000),
+            address || nullAddress
         ],
     });
 
@@ -80,7 +81,8 @@ export function EditTickets({ setEditTickets, numberOfTickets, tickets, setTicke
                 : [
                     transformTicketsToBytes32(tickets),
                     BigInt(price * tickets.length),
-                    estimatedGas + BigInt(200000)
+                    estimatedGas + BigInt(200000),
+                    address || nullAddress
                 ],
             value: chainId === defaultChain.chainId
                 ? BigInt(price * tickets.length)
@@ -104,9 +106,17 @@ export function EditTickets({ setEditTickets, numberOfTickets, tickets, setTicke
             <div className={styles.pop}>
                 <p className={styles.header}>Edit Tickets</p>
                 <div className={styles.content}>
+                { chainId != defaultChain.chainId && <><div>
+                        <p className={styles.label}>CCIP Fee</p>
+                        <p className={styles.amount}>{(Number(_fee) / 10**18).toFixed(4)} ETH</p>
+                    </div>
+                    <div>
+                        <p className={styles.label}>Tickets</p>
+                        <p className={styles.amount}>{(price / 10**18 * Number(numberOfTickets)).toFixed(4)} ETH</p>
+                    </div></>}
                     <div>
                         <p className={styles.label}>You pay</p>
-                        <p className={styles.amount}>{(price / 10 ** 18 * numberOfTickets).toFixed(4)} ETH</p>
+                        <p className={styles.amount}>{(price / 10**18 * Number(numberOfTickets) + (chainId != defaultChain.chainId ? (Number(_fee) / 10**18) : 0)).toFixed(4)} ETH</p>
                     </div>
                     <div className={styles.line}></div>
                     {tickets.map((values, index) => (

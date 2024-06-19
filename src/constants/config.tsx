@@ -24,12 +24,12 @@ export const rewardsBreakdown = (): number[] => {
   return ([0.15, 0.175, 0.2, 0.225, 0.1, 0.15]);
 }
 
-export const firstRound: number = 19882;
+export const firstRound: number = 19889;
 
 export const lotteryContract: Record<number, {abi: any, address: `0x${string}`}> = {
   [421614]: { // ARB Testnet
     abi: lotteryABI,
-    address: "0x5635988d5816540C0b62757e8Df5b9dC5853cD79" as `0x${string}`
+    address: "0x219F48D67935445C8cB690a0Fd22A2eC486a98Fe" as `0x${string}`
   },
   [42161]: { // ARB Mainnet
     abi: lotteryABI,
@@ -37,7 +37,7 @@ export const lotteryContract: Record<number, {abi: any, address: `0x${string}`}>
   },
   [11155420]: { // OP Testnet
     abi: ccLotteryABI,
-    address: "0xb657d0e863648e5AeBb061b3af62533b03E019a4" as `0x${string}`
+    address: "0x5A4CEA5F8AF96d4481DDF565529BfCD1b8260Bed" as `0x${string}`
   },
   [10]: { // OP Mainnet
     abi: ccLotteryABI,

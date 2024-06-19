@@ -20,6 +20,29 @@ export const lotteryABI = [
 	{
 		"inputs": [
 			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "_ticketIds",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "uint32[]",
+				"name": "_brackets",
+				"type": "uint32[]"
+			}
+		],
+		"name": "claimTickets",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"components": [
 					{
 						"internalType": "bytes32",
@@ -150,29 +173,6 @@ export const lotteryABI = [
 			}
 		],
 		"name": "changeRewardsBreakdown",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "_ticketIds",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "uint32[]",
-				"name": "_brackets",
-				"type": "uint32[]"
-			}
-		],
-		"name": "claimTickets",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"

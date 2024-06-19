@@ -3,6 +3,19 @@
     background: linear-gradient(180deg, #0099ff,#2bcaff);
     padding: 50px;
 }
+@media screen and (max-width: 850px) {
+    .previousRounds {
+        padding: 10px;
+    }
+}
+.yourTickets {
+    padding: 50px;
+}
+@media screen and (max-width: 850px) {
+    .yourTickets {
+        padding: 10px;
+    }
+}
 .buyTicketsButton {
     background-color: #0099ff;
     border: none;
@@ -17,6 +30,7 @@
 }
 .landing {
     max-width: 600px;
+    width: 80%;
     margin: 50px auto;
     line-height: normal;
 }
@@ -24,6 +38,17 @@
     font-size: 4em;
     font-weight: bold;
     margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+@media screen and (max-width: 500px) {
+    .lotteryName {
+        font-size: 3.5em;
+    }
+}
+@media screen and (max-width: 450px) {
+    .lotteryName {
+        font-size: 3em;
+    }
 }
 .desc {
     font-size: 1.1em;
