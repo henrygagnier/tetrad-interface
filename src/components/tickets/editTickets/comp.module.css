@@ -63,6 +63,7 @@
     float: left;
     margin: 0;
     margin-bottom: 10px;
+    clear: both;
 }
 .amount {
     float: right;

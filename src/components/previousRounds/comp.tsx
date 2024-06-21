@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./comp.module.css";
-import { useReadContract, useWriteContract } from 'wagmi';
+import { useReadContract, useWriteContract, useAccount } from 'wagmi';
 import { useEffect, useState } from 'react';
 import { firstRound, lotteryContract, rewardsBreakdown, defaultChain } from "@/constants/config";
 
@@ -16,6 +16,8 @@ interface LotteryData {
 export const PreviousRounds = () => {
     const [round, setRound] = useState<number>(0);
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const { chainId } = useAccount();
 
     const updateRound = (e: any) => {
         if (e.target.value > Number(currentLotteryId) - firstRound + 1) {
@@ -99,8 +101,8 @@ export const PreviousRounds = () => {
                 <div>
                     <div className={styles.left}>
                         <p className={styles.header}>Winning Number</p>
-                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(amountCollected || 0) === 0 ? "No participants this round!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!"}</p>
-                        { new Date() >= roundDate && Number(amountCollected || 0) !== 0 && Number(finalNumber) === 0 && <button onClick={() => drawLottery(BigInt(round))} className={styles.drawLottery}>Draw Lottery</button>}
+                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(amountCollected || 0) === 0 ? "No participants this round!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!" + (chainId !== defaultChain.chainId ? " Draw the number on Arbitrum." : "")}</p>
+                        { chainId === defaultChain.chainId && new Date() >= roundDate && Number(amountCollected || 0) !== 0 && Number(finalNumber) === 0 && <button onClick={() => drawLottery(BigInt(round))} className={styles.drawLottery}>Draw Lottery</button>}
                     </div>
                     
 
