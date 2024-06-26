@@ -85,6 +85,8 @@ export const PreviousRounds = () => {
             amountCollected = BigInt(0)
         } = lotteryData;
 
+        
+
         function convertNumbers(number: number): number[] {
             const numberStr = number.toString();
 
@@ -101,8 +103,8 @@ export const PreviousRounds = () => {
                 <div>
                     <div className={styles.left}>
                         <p className={styles.header}>Winning Number</p>
-                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(amountCollected || 0) === 0 ? "No participants this round!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!" + (chainId !== defaultChain.chainId ? " Draw the number on Arbitrum." : "")}</p>
-                        { chainId === defaultChain.chainId && new Date() >= roundDate && Number(amountCollected || 0) !== 0 && Number(finalNumber) === 0 && <button onClick={() => drawLottery(BigInt(round))} className={styles.drawLottery}>Draw Lottery</button>}
+                        <p className={styles.desc}>{new Date() < roundDate ? "Guess the numbers!" : Number(finalNumber) !== 0 ? "Are you a winner?" : "The number isn't drawn yet!" + (chainId !== defaultChain.chainId ? " Draw the number on Arbitrum." : "")}</p>
+                        { chainId === defaultChain.chainId && new Date() >= roundDate && Number(finalNumber) === 0 && <button onClick={() => drawLottery(BigInt(round))} className={styles.drawLottery}>Draw Lottery</button>}
                     </div>
                     
 
@@ -116,15 +118,6 @@ export const PreviousRounds = () => {
                                     </div>
                                 ))
                              :
-                            Number(amountCollected) === 0 ?
-                                ["0", "0", "0", "0", "0", "0"].map((number, index) => (
-                                    <div className={styles.lottoWrapper} key={index}>
-                                        <p className={styles.lottoNumber}>
-                                            {number}
-                                        </p>
-                                    </div>
-                                ))
-                                :
                                 Number(finalNumber) !== 0 ?
                                 (convertNumbers(finalNumber).reverse()).map((number, index) => (
                                     <div className={styles.lottoWrapper} key={index}>
