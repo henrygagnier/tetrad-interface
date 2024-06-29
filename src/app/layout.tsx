@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Roboto as _font } from "next/font/google";
+import { Roboto, Syne } from "next/font/google";
 import "./globals.css";
 import { Web3Provider } from "@/constants/config";
 
 import { Navbar } from "@/components/navbar/navbar/comp";
 
-const font = _font({ subsets: ["latin"], weight: "400" });
+const _Roboto = Roboto({ subsets: ["latin"], weight: "400" });
+const _Syne = Syne({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Tetrad Finance | Revolutionizing Traditional Gaming",
@@ -19,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${_Roboto.className} ${_Syne.className}`}>
         <Web3Provider>
         <Navbar/>
         {children}

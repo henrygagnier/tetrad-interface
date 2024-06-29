@@ -11,6 +11,7 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   margin: 0;
+  font-family: "Roboto", sans-serif;
 }
 
 
@@ -38,4 +39,7 @@ margin: 0;
 }
 ::-webkit-scrollbar-thumb {
   background: #999; /* Color of the draggable scrolling handle */
+}
+svg{
+  display: block;
 }

@@ -1,0 +1,48 @@
+.section {
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 0;
+
+}
+
+.container1 {
+    padding: 0px 150px 100px 150px;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    background-color: #fff;
+    border: 1px solid rgb(229, 229, 229);
+    padding: 20px;
+    border-radius: 10px;
+}
+.title{
+    font-weight: bold;
+    font-size: 1.25em;
+    margin: 0;
+    color: #0099ff;
+}
+.header{
+     font-size: 2em;
+     font-weight: bold;
+     margin: 0;
+     padding: 5px 10px;
+     padding-top: 10px;
+     color: #0099ff;
+    
+}
+@media screen and (max-width:1000px) {
+    .container1 {
+      padding: 10px;
+    }
+  }
+  .desc{
+    padding: 0 10px;
+    margin: 0;
+    padding-bottom: 10px;
+  }
+  .desc1 {
+    margin: 0;
+    margin-top: 5px;
+  }

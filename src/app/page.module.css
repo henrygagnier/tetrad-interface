@@ -1,8 +1,15 @@
 
 .previousRounds {
     background: linear-gradient(180deg, #0099ff,#2bcaff);
-    padding: 50px;
+    padding:  50px;
 }
+
+.info {
+margin: 0;
+padding:0;
+background: linear-gradient(0deg, #0099ff,#2bcaff);
+}
+
 @media screen and (max-width: 850px) {
     .previousRounds {
         padding: 10px;
@@ -56,7 +63,7 @@
 }
 .blue {
     color: rgb(24, 151, 255);
-    text-shadow: 5px 5px 0px rgb(152, 209, 255);
+    text-shadow: 0.05em 0.05em 0px rgb(152, 209, 255);
     
 }
 .centered {

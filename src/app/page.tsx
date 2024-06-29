@@ -9,6 +9,7 @@ import { PreviousRounds } from "@/components/previousRounds/comp";
 import { YourTickets } from "@/components/yourTickets/comp";
 import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
+import { Info } from "@/components/info/page";
 
 export default function Home() {
   const [buyTicketsOpen, setBuyTicketsOpen] = useState<boolean>(false);
@@ -80,13 +81,18 @@ export default function Home() {
           <main className={styles.yourTickets}>
             <YourTickets />
           </main>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 127.47 1440 192.53">
-            <path
-              fill="#2bcaff"
-              fillOpacity="1"
-              d="M0,160L48,149.3C96,139,192,117,288,133.3C384,149,480,203,576,218.7C672,235,768,213,864,192C960,171,1056,149,1152,138.7C1248,128,1344,128,1392,128L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 128 1440 192">
+          <path
+            fill="#2bcaff"
+            fillOpacity="1"
+            d="M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,165.3C672,149,768,139,864,149.3C960,160,1056,192,1152,192C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+
+          <main className={styles.info}>
+            <Info />
+          </main>
+          
         </>
       )}
     </>
