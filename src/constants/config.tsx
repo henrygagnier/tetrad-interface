@@ -55,6 +55,9 @@ export const config = createConfig(
 
     walletConnectProjectId: "1a220f2c3d69be0e73a7d02da48942f5",
     appName: "Tetrad Lottery",
+    appDescription: "The first cross-chain lottery on ARB and OP",
+    appUrl: "https://tetrad.fi",
+    appIcon: "https://tetrad.fi/favicon.ico",
   }),
 );
 
